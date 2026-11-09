@@ -109,13 +109,15 @@ footer p+p{margin-top:6px}
 <section id="words">
   <h2>Words on this page</h2>
   <div class="tablewrap"><table>
-    <tr><td><b>Floor</b></td><td>The first wall: the sender's key is on the roster and the Ed25519 signature holds on the raw bytes, checked before anything is parsed.</td></tr>
+    <tr><td><b>Floor</b></td><td>The first wall: the sender's key is on the roster and the Ed25519 signature holds on the raw bytes, checked before anything is parsed. The keys here are derived from public seeds so anyone can re-run the record; a real deployment generates a secret key on each sender.</td></tr>
     <tr><td><b>Settle, fit</b></td><td>The node flips the input's bits one at a time towards its stored digit patterns until nothing more changes. The fit is how strongly the settled state matches them.</td></tr>
     <tr><td><b>Non-fit, θ</b></td><td>An input whose fit is below θ is rejected as fitting nothing the node knows. θ came out at zero on the tune digits, so, by the disclosed amendment, zero fit is what counts as non-fit.</td></tr>
     <tr><td><b>Antibody</b></td><td>A stored pattern of a known attack. An input is rejected if the antibodies match its settled state at least as well as the node's own patterns do.</td></tr>
-    <tr><td><b>Scrambled, noise, inverted</b></td><td>Blind attacks, all validly signed: a real digit with its pixels shuffled; random values; a real digit with its ink turned inside out.</td></tr>
+    <tr><td><b>Scrambled, noise, inverted</b></td><td>Blind attacks, all validly signed: a real digit with its pixels shuffled; random values; a real digit with its ink turned inside out. Noise and inverted are the "crude" attacks on this page: nothing like a real input.</td></tr>
     <tr><td><b>Mimic</b></td><td>An attacker who can query the defence: it starts from noise and, for 300 queries, keeps any one-pixel change that raises the node's fit.</td></tr>
-    <tr><td><b>Harmful share</b></td><td>An antibody set grown from real digits, validly signed: it should be refused because it would reject real inputs.</td></tr>
+    <tr><td><b>Harmful share</b></td><td>An antibody set grown from real digits, validly signed: it was expected to be refused because it would reject real inputs. In fact it newly rejected none of B's check digits, so B's check let it in, and claim D5 failed.</td></tr>
+    <tr><td><b>Tune side, held-out side</b></td><td>The tune side is everything built from training digits and tune seeds (θ, the antibodies, the tune-seed mimics). The held-out side is the 10,000 test digits and attacks from other seeds, read once after the defence was frozen.</td></tr>
+    <tr><td><b>Re-derives from pinned files</b></td><td>Every data and code file is fixed by its hash, so re-running the tools, on GitHub or in your tab, gives the same numbers to the last digit.</td></tr>
     <tr><td><b>Seal, mutation gate</b></td><td>Seal: the claims, then the frozen defence, committed to the public record before the test digits are read. Mutation gate: a tool (witness) that breaks the code in small ways and checks the tests catch every break.</td></tr>
   </table></div>
 </section>
@@ -197,7 +199,7 @@ footer p+p{margin-top:6px}
   <h2>For business</h2>
   <div class="tablewrap"><table>
     <thead><tr><th>Who</th><th>What this means for them</th></tr></thead>
-    <tr><td>CEO</td><td>Signatures stop forgeries; they do not stop a thief with your key. A structural check stops the crude attacks and is honest about the rest.</td></tr>
+    <tr><td>CEO</td><td>Signatures stop forgeries; they do not stop a thief with your key. A structural check stops crude attacks (random noise, inverted digits) and is honest about the rest.</td></tr>
     <tr><td>Finance</td><td>No per-call fee; the check is a settle on hardware you have. The cost case below uses your own numbers.</td></tr>
     <tr><td>Operations</td><td>Rejections come with a reason (signature, no fit, antibody), so a queue of refused inputs can be triaged.</td></tr>
     <tr><td>CTO / CISO</td><td>Verify before parse on raw bytes; a measured structural layer behind it; every number and limit published and re-derivable.</td></tr>
