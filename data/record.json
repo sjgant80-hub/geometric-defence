@@ -1,0 +1,108 @@
+{
+ "record": {
+  "th": "0",
+  "abHash": "31e829f90a9a040368742698176bc3fb712a4202060d9003c7cc1a008f1d1294",
+  "adopted": true,
+  "per": 300,
+  "digits": 10000,
+  "genuine": {
+   "passPlain": 9771,
+   "passWithAb": 9771
+  },
+  "floor": {
+   "T1": {
+    "refused": 300,
+    "reasons": [
+     "bad-signature"
+    ]
+   },
+   "T2": {
+    "refused": 300,
+    "reasons": [
+     "unknown-key"
+    ]
+   },
+   "T3": {
+    "refused": 300,
+    "reasons": [
+     "bad-signature"
+    ]
+   }
+  },
+  "attacks": {
+   "A1": {
+    "nonFit": 108,
+    "rejectedWithAb": 108,
+    "rejectedPlain": 108
+   },
+   "A2": {
+    "nonFit": 298,
+    "rejectedWithAb": 298,
+    "rejectedPlain": 298
+   },
+   "A3": {
+    "nonFit": 300,
+    "rejectedWithAb": 300,
+    "rejectedPlain": 300
+   },
+   "A4": {
+    "nonFit": 296,
+    "rejectedWithAb": 296,
+    "rejectedPlain": 296
+   }
+  },
+  "hash": "e444561b1bc6680b4f0bb5edba17b83ac3f20273f4d7face7e9285238ece2380"
+ },
+ "verdicts": [
+  {
+   "id": "D1",
+   "what": "every tampered message refused before parsing",
+   "measured": [
+    "T1 300/300 bad-signature",
+    "T2 300/300 unknown-key",
+    "T3 300/300 bad-signature"
+   ],
+   "bar": "all, at the key or signature",
+   "pass": true
+  },
+  {
+   "id": "D2",
+   "what": "genuine test digits passing both layers: without antibodies, and with B's adopted antibodies",
+   "measured": [
+    0.9771,
+    0.9771
+   ],
+   "bar": "at least 0.98, and at least 0.97",
+   "pass": false
+  },
+  {
+   "id": "D3",
+   "what": "blind attacks rejected by non-fit: scrambled, noise, inverted",
+   "measured": [
+    0.36,
+    0.993333,
+    1
+   ],
+   "bar": "each at least 0.99",
+   "pass": false
+  },
+  {
+   "id": "D4",
+   "what": "held-out mimics rejected with A's antibodies adopted",
+   "measured": 0.986667,
+   "bar": "at least 0.9",
+   "pass": true
+  },
+  {
+   "id": "D5",
+   "what": "the honest antibody share adopted after B's gate; the forged and the harmful shares refused",
+   "measured": [
+    "adopted",
+    "bad-signature",
+    "adopted (0 new rejects)"
+   ],
+   "bar": "adopted, bad-signature, harms-genuine",
+   "pass": false
+  }
+ ]
+}

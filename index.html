@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Geometric defence · a shape that won't settle</title>
+<meta name="description" content="Rung 5 of the geometric ladder: a signature floor, then a settling fit-check, against four validly signed attack families, with antibodies shared over the signed mesh. Every failure published.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<style>
+:root{--bg:#f7f5f0;--panel:#ffffff;--ink:#1d1c1a;--muted:#6b665c;--line:rgba(29,28,26,.12);--accent:#3f6b47;--accent-dim:rgba(63,107,71,.10);--win:#2f7a3d;--tie:#a5701c;--bad:#b3452c;--px0:#ffffff;--px1:#1d1c1a;--mono:'JetBrains Mono','IBM Plex Mono',ui-monospace,monospace;--sans:'Inter',-apple-system,system-ui,sans-serif;--serif:'Cormorant Garamond','Iowan Old Style',Georgia,serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1a1e;--panel:#212127;--ink:#e8e4db;--muted:#928d80;--line:rgba(232,228,219,.12);--accent:#7a9c7e;--accent-dim:rgba(122,156,126,.14);--win:#7acc85;--tie:#d4a052;--bad:#d67a5a;--px0:#212127;--px1:#e8e4db}}
+:root[data-theme="dark"]{--bg:#1a1a1e;--panel:#212127;--ink:#e8e4db;--muted:#928d80;--line:rgba(232,228,219,.12);--accent:#7a9c7e;--accent-dim:rgba(122,156,126,.14);--win:#7acc85;--tie:#d4a052;--bad:#d67a5a;--px0:#212127;--px1:#e8e4db}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none !important}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+main{max-width:1040px;margin:0 auto;padding:0 16px 64px}
+nav.top{position:sticky;top:0;z-index:3;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;padding:8px 16px;font-family:var(--mono);font-size:12px}
+nav.top a{color:var(--muted);text-decoration:none} nav.top a:hover{color:var(--accent)}
+header.hero{max-width:1040px;margin:0 auto;padding:36px 16px 10px}
+h1{font-family:var(--serif);font-size:clamp(34px,6vw,58px);line-height:1.05;font-weight:600}
+.lede{font-size:19px;color:var(--muted);max-width:780px;margin-top:10px}
+.verdictline{font-size:17px;margin-top:12px;max-width:780px}
+section{margin-top:40px}
+h2{font-family:var(--serif);font-size:30px;font-weight:600;margin-bottom:8px}
+h3{font-size:16px;margin:16px 0 6px}
+p+p{margin-top:8px} ul,ol{padding-left:22px} li{margin:4px 0}
+.muted{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.card .k{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.card .big{font-size:26px;font-weight:600;margin:6px 0 2px;font-variant-numeric:tabular-nums}
+.card .vs{font-size:14px;color:var(--muted)}
+.chip{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em;padding:2px 10px;border-radius:12px;white-space:nowrap}
+.chip.win{background:color-mix(in srgb,var(--win) 15%,transparent);color:var(--win)} .chip.bad{background:color-mix(in srgb,var(--bad) 15%,transparent);color:var(--bad)}
+.bar{height:10px;border-radius:5px;background:var(--line);margin:3px 0;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .08s linear} .bar.m i{background:var(--muted)}
+button{font:inherit;font-size:15px;color:#fff;background:var(--accent);border:0;border-radius:6px;padding:9px 16px;cursor:pointer}
+button.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--tie);outline-offset:2px}
+button:disabled{opacity:.55;cursor:progress}
+select{font:inherit;font-size:14px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:6px 8px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin-top:10px}
+td,th{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tablewrap{overflow-x:auto}
+.ok{color:var(--win);font-weight:600} .no{color:var(--bad);font-weight:600}
+.svgwrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:10px}
+.svgwrap svg{display:block;min-width:680px;width:100%;height:auto}
+code{font-family:var(--mono);font-size:.88em;background:var(--accent-dim);padding:1px 5px;border-radius:3px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
+.controls label{display:flex;gap:6px;align-items:center;font-size:14px;color:var(--muted)}
+.controls input{width:90px;font:inherit;font-size:14px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:4px 6px}
+.stage{display:grid;grid-template-columns:minmax(200px,280px) 1fr;gap:18px;align-items:start;margin-top:10px}
+.stage canvas{width:100%;height:auto;aspect-ratio:1;border:1px solid var(--line);border-radius:8px;background:var(--px0);image-rendering:pixelated}
+.fits{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:2px 8px;align-items:center;font-family:var(--mono);font-size:12.5px}
+.fits .bar{margin:0}
+.fits .win i{background:var(--win)}
+.readout{font-size:15px;margin-top:8px}
+.memories{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px;margin-top:10px}
+.memories figure{text-align:center;font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.memories canvas{width:100%;height:auto;aspect-ratio:1;border:1px solid var(--line);border-radius:4px;image-rendering:pixelated;background:var(--px0)}
+.timeline{list-style:none;padding:0;border-left:2px solid var(--accent);margin-top:10px}
+.timeline li{padding:4px 0 8px 14px;position:relative}
+.timeline li::before{content:'';position:absolute;left:-6px;top:12px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.timeline b{font-family:var(--mono);font-size:12.5px}
+footer{max-width:1040px;margin:0 auto;padding:22px 16px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+footer p+p{margin-top:6px}
+@media (max-width:640px){.stage{grid-template-columns:1fr}.stage canvas{max-width:260px}td,th{padding:6px 5px;font-size:13.5px}}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Sections">
+  <a href="#result">The result</a><a href="#families">Attack by attack</a><a href="#rerun">Re-run it</a><a href="#start">Start here</a><a href="#how">How it works</a><a href="#blueprint">Blueprint</a><a href="#adoption">Adoption</a><a href="#paper">White paper</a><a href="#business">For business</a>
+</nav>
+<header class="hero">
+  <h1>An attack is a shape that won't settle.</h1>
+  <p class="lede">A node that reads handwritten digits guards its door twice. First, a signature check on the raw bytes, before anything is read. Then the settle itself: an input that fits nothing the node knows is turned away, and antibodies shared over the signed mesh can claim the rest. Four kinds of attack were sent, all validly signed, as if from a stolen key. This page shows what got through.</p>
+  <p class="verdictline" id="verdictline">Loading the record…</p>
+</header>
+<main>
+
+<section id="result">
+  <h2>The result</h2>
+  <p class="muted">Each claim was written down with its bar before any code (<a href="CLAIMS.md">CLAIMS.md</a>). One gap was closed before the test digits were read (<a href="AMENDMENT.md">AMENDMENT.md</a>). The defence was frozen by hash (<a href="SEAL2.md">SEAL2.md</a>). A claim that misses its bar is kept and shown as failed. Every number is read from the committed record.</p>
+  <div class="tablewrap"><table id="claims"><thead><tr><th>Claim</th><th>What it says</th><th>Measured</th><th>Bar</th><th>Verdict</th></tr></thead><tbody></tbody></table></div>
+  <h3>What the result says</h3>
+  <p id="lesson">…</p>
+</section>
+
+<section id="families">
+  <h2>Attack by attack</h2>
+  <div class="tablewrap"><table id="fam"><thead><tr><th>Input</th><th>What it is</th><th>Stopped by the floor</th><th>Turned away by non-fit</th><th>With antibodies</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="rerun">
+  <h2>Re-run it in your browser</h2>
+  <p>Your tab signs every input with the sender's seeded key, puts each through the floor and the settle, builds the 300 adaptive mimics again, and hashes the full record. It takes a few minutes and sends nothing anywhere.</p>
+  <div class="controls"><button id="go">Re-run the held-out side</button><span id="gostatus" class="muted"></span></div>
+  <div class="tablewrap"><table id="proof" hidden><thead><tr><th>Number</th><th>Your tab</th><th>The record</th><th></th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="what">
+  <h2>What this is</h2>
+  <p>This is Rung 5 of a ladder toward computing by geometry instead of by large models. A signature proves who sent something, not that it is safe: a stolen key signs attacks perfectly. Rung 5 asks whether the shape of the computation itself can be a second wall. If the settle finds nothing an input fits, the node turns it away, and antibodies learned on one node can be shared to others.</p>
+</section>
+
+<section id="start">
+  <h2>Start here</h2>
+  <ol>
+    <li>Read <a href="#result">The result</a> and <a href="#families">Attack by attack</a>: what was stopped, by which wall.</li>
+    <li>Press <b>Re-run the held-out side</b> and check the hash.</li>
+    <li>Off the page: clone the repo and run <code>node --test test/*.test.mjs</code>, <code>node tools/prepare.mjs --check</code> and <code>node tools/eval.mjs --check</code>.</li>
+  </ol>
+</section>
+
+<section id="how">
+  <h2>How it works</h2>
+  <div class="svgwrap">
+    <svg viewBox="0 0 900 210" role="img" aria-label="A signed message passes the floor, then settles; zero fit is rejected, antibodies may claim the rest, otherwise it passes">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="currentColor"/></marker></defs>
+      <g fill="none" stroke="currentColor" stroke-width="1.4" style="color:var(--muted)">
+        <rect x="10" y="55" width="190" height="100" rx="10"/><rect x="245" y="55" width="190" height="100" rx="10"/><rect x="480" y="55" width="190" height="100" rx="10"/><rect x="715" y="55" width="175" height="100" rx="10"/>
+        <path d="M200 105H241" marker-end="url(#ar)"/><path d="M435 105H476" marker-end="url(#ar)"/><path d="M670 105H711" marker-end="url(#ar)"/>
+      </g>
+      <g font-family="ui-monospace,monospace" font-size="13" fill="currentColor" style="color:var(--ink)">
+        <text x="25" y="88">the floor: key on</text><text x="25" y="106">the roster, signature</text><text x="25" y="124">on the raw bytes</text>
+        <text x="260" y="88">settle the image</text><text x="260" y="106">in the node's</text><text x="260" y="124">energy landscape</text>
+        <text x="495" y="88">zero fit: it fits</text><text x="495" y="106">nothing known,</text><text x="495" y="124">turn it away</text>
+        <text x="730" y="88">antibodies hold</text><text x="730" y="106">as much fit?</text><text x="730" y="124">turn it away</text>
+      </g>
+    </svg>
+  </div>
+  <ol>
+    <li><b>The floor.</b> A message is 64 bytes of ink, an Ed25519 signature and a key. The key must be on the roster and the signature must verify over the raw bytes before anything is parsed.</li>
+    <li><b>The settle.</b> The node settles the image. If the settled state is within reach of nothing it knows, its fit is zero, and it is turned away.</li>
+    <li><b>Antibodies.</b> Patterns grown from attacks one node saw. If they hold at least as much fit at the settled state as the node's own patterns, the input is turned away.</li>
+    <li><b>Sharing them.</b> Node A signs its antibodies; node B checks the signature first, then makes sure they would not turn away its own genuine digits, and only then adopts them.</li>
+  </ol>
+</section>
+
+<section id="blueprint">
+  <h2>Blueprint</h2>
+  <div class="cards" id="parts"></div>
+  <ul class="timeline" id="timeline"></ul>
+</section>
+
+<section id="adoption">
+  <h2>Adoption</h2>
+  <div class="cards">
+    <div class="card"><div class="k">For a business</div><p style="margin-top:6px">A second wall behind signatures, for inputs a stolen key could sign. Random and inverted junk is stopped almost entirely; inputs that look like real ones are not. Know which you face.</p></div>
+    <div class="card"><div class="k">For engineering</div><p style="margin-top:6px">Verify before parse; then a structural check that costs a settle; then shared antibodies adopted only after a local check. Every number re-derives from pinned files.</p></div>
+    <div class="card"><div class="k">For risk and procurement</div><p style="margin-top:6px">The limits are on the page: this does not stop genuine-looking inputs from a stolen key, physical tampering, or bad firmware.</p></div>
+  </div>
+</section>
+
+<section id="paper">
+  <h2>White paper: a structural wall behind the signature</h2>
+  <p><b>The question.</b> Can the settle itself tell a real input from an attack, when the attacker has a valid key?</p>
+  <p><b>The method.</b> Rung 4's node defends itself. Four attack families, 300 each, every one validly signed: scrambled digits, random noise, inverted digits, and an adaptive attacker that hill-climbs the node's own fit for 300 queries. Antibodies grown on node A from tune-seed mimics, shared to B over the signed mesh. The defence was frozen by hash, then judged once on the 10,000 test digits and held-out-seed attacks.</p>
+  <p><b>The results, from the record:</b></p>
+  <ul id="results"></ul>
+  <p><b>The limits, plainly:</b></p>
+  <ul>
+    <li>Half the scrambled digits settle into a real digit's well; at the settled state they are indistinguishable from real digits, and the wall lets them through.</li>
+    <li>The adaptive attacker was stopped by zero fit, not by the antibodies: the settled fit is flat inside a well, so a climb has no gradient. A different attacker could do better.</li>
+    <li>The "harmful" antibody share harmed nothing, so B's gate let it in: the claim about it failed because its premise was wrong.</li>
+    <li>The MNIST test digits were read before by Rungs 3 and 4. Not a fabric (Rung 6), not on a chip (Rung 7).</li>
+  </ul>
+</section>
+
+<section id="business">
+  <h2>For business</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Who</th><th>What this means for them</th></tr></thead>
+    <tr><td>CEO</td><td>Signatures stop forgeries; they do not stop a thief with your key. A structural check stops the crude attacks and is honest about the rest.</td></tr>
+    <tr><td>Finance</td><td>No per-call fee; the check is a settle on hardware you have. The cost case below uses your own numbers.</td></tr>
+    <tr><td>Operations</td><td>Rejections come with a reason (signature, no fit, antibody), so a queue of refused inputs can be triaged.</td></tr>
+    <tr><td>CTO / CISO</td><td>Verify before parse on raw bytes; a measured structural layer behind it; every number and limit published and re-derivable.</td></tr>
+  </table></div>
+  <h3>The cost case for one process</h3>
+  <p class="muted">Your numbers in; sourced figures for the rest: UK median wage, CPI, electricity, and today's seat and API prices, each source listed. These are your costs. No price of ours appears. The starting values are an example process: a team checking incoming submissions by hand. Put in your own.</p>
+  <div class="controls">
+    <label>hours a week <input id="c-hours" type="number" min="0" max="168" value="20"></label>
+    <label>share taken off % <input id="c-share" type="number" min="0" max="100" value="50"></label>
+    <label>people <input id="c-seats" type="number" min="0" value="5"></label>
+    <label>cases a week <input id="c-cases" type="number" min="0" value="500"></label>
+    <label>years <input id="c-years" type="number" min="1" max="10" value="3"></label>
+  </div>
+  <p id="c-head" style="font-size:17px">…</p>
+  <div class="tablewrap"><table id="c-table"><thead><tr><th>Route</th><th>What it means</th><th>A year</th><th id="c-overh">Over the years</th></tr></thead><tbody></tbody></table></div>
+  <p id="c-note" class="muted" style="margin-top:8px"></p>
+  <h3>The case for the board</h3>
+  <p id="c-board"></p>
+  <h3>Questions buyers ask</h3>
+  <div class="tablewrap"><table>
+    <tr><td><b>Does this stop a stolen key?</b></td><td>It stops a stolen key's crude attacks (noise, inverted junk). It does not stop inputs that look like real ones: half the scrambled digits got through. That is on the record above.</td></tr>
+    <tr><td><b>What does it cost real inputs?</b></td><td id="faq-cost">Loading…</td></tr>
+    <tr><td><b>How would we test it on our own inputs?</b></td><td>Seal the bars, tune on part of your genuine inputs and known attacks, freeze, and judge once on held-out ones. The fee is due only if it beat your current way.</td></tr>
+    <tr><td><b>What failed?</b></td><td id="faq-failed">Loading…</td></tr>
+    <tr><td><b>Who has done this for a client? Is it certified?</b></td><td>No client case study is published yet, and no certification is claimed. The record re-derives from pinned files, on GitHub's runner and in your browser.</td></tr>
+  </table></div>
+  <p style="margin-top:10px">Supplied by <a href="https://www.ai-nativesolutions.com" rel="noopener">AI Native Solutions</a>; contact through that site. Support, SLA, warranty and liability are agreed per deployment. The code is MIT. The rungs below: <a href="https://sjgant80-hub.github.io/settling-cell/">1</a>, <a href="https://sjgant80-hub.github.io/code-rsi/">2</a>, <a href="https://sjgant80-hub.github.io/hybrid-gate/">3</a>, <a href="https://sjgant80-hub.github.io/mesh-share/">4</a>.</p>
+  <p class="muted" style="margin-top:8px">Sources, as read into the cost basis:</p>
+  <ul id="c-src" class="muted" style="font-size:13px"></ul>
+</section>
+</main>
+<footer>
+  <p>Data: the MNIST database of handwritten digits, Y. LeCun, C. Cortes and C. J. C. Burges, CC BY-SA 3.0, from Google's public mirror; pinned by SHA-256.</p>
+  <p>Built on Rungs 1, 3 and 4 and the estate's Ed25519 keys, vendored byte for byte. The cell's energy follows Hopfield (1982) and Krotov &amp; Hopfield (2016).</p>
+  <p>Powered by the Konomi architecture, created by Thomas Frumkin.</p>
+  <p>MIT licence for the code; the MNIST files keep their CC BY-SA 3.0 licence · <a href="https://github.com/sjgant80-hub/geometric-defence">source</a> · Rung 5 of the geometric ladder.</p>
+</footer>
+<script type="module" src="app.mjs"></script>
+</body>
+</html>
