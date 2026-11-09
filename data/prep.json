@@ -1,0 +1,22 @@
+{
+ "th": "0",
+ "abHash": "31e829f90a9a040368742698176bc3fb712a4202060d9003c7cc1a008f1d1294",
+ "mimicFitsPassTheta": 3,
+ "receive": {
+  "honest": {
+   "adopted": true,
+   "reason": "adopted",
+   "newRejects": 0
+  },
+  "forged": {
+   "adopted": false,
+   "reason": "bad-signature",
+   "newRejects": 0
+  },
+  "harmful": {
+   "adopted": true,
+   "reason": "adopted",
+   "newRejects": 0
+  }
+ }
+}
