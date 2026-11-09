@@ -72,7 +72,7 @@ footer p+p{margin-top:6px}
 </head>
 <body>
 <nav class="top" aria-label="Sections">
-  <a href="#result">The result</a><a href="#families">Attack by attack</a><a href="#rerun">Re-run it</a><a href="#start">Start here</a><a href="#how">How it works</a><a href="#blueprint">Blueprint</a><a href="#adoption">Adoption</a><a href="#paper">White paper</a><a href="#business">For business</a>
+  <a href="#result">The result</a><a href="#families">Attack by attack</a><a href="#rerun">Re-run it</a><a href="#words">Words</a><a href="#start">Start here</a><a href="#how">How it works</a><a href="#blueprint">Blueprint</a><a href="#adoption">Adoption</a><a href="#paper">White paper</a><a href="#business">For business</a>
 </nav>
 <header class="hero">
   <h1>An attack is a shape that won't settle.</h1>
@@ -103,7 +103,21 @@ footer p+p{margin-top:6px}
 
 <section id="what">
   <h2>What this is</h2>
-  <p>This is Rung 5 of a ladder toward computing by geometry instead of by large models. A signature proves who sent something, not that it is safe: a stolen key signs attacks perfectly. Rung 5 asks whether the shape of the computation itself can be a second wall. If the settle finds nothing an input fits, the node turns it away, and antibodies learned on one node can be shared to others.</p>
+  <p>This is Rung 5 of a ladder toward computing by geometry instead of by large models. A signature proves who sent something, not that it is safe: a stolen key signs attacks perfectly. Rung 5 asks whether the shape of the computation itself can be a second wall. If the settle finds nothing an input fits, the node turns it away, and antibodies learned on one node can be shared to others. What the other rungs found, held and failed, is on the <a href="https://sjgant80-hub.github.io/geometric-ladder/">ladder page</a>.</p>
+</section>
+
+<section id="words">
+  <h2>Words on this page</h2>
+  <div class="tablewrap"><table>
+    <tr><td><b>Floor</b></td><td>The first wall: the sender's key is on the roster and the Ed25519 signature holds on the raw bytes, checked before anything is parsed.</td></tr>
+    <tr><td><b>Settle, fit</b></td><td>The node flips the input's bits one at a time towards its stored digit patterns until nothing more changes. The fit is how strongly the settled state matches them.</td></tr>
+    <tr><td><b>Non-fit, θ</b></td><td>An input whose fit is below θ is rejected as fitting nothing the node knows. θ came out at zero on the tune digits, so, by the disclosed amendment, zero fit is what counts as non-fit.</td></tr>
+    <tr><td><b>Antibody</b></td><td>A stored pattern of a known attack. An input is rejected if the antibodies match its settled state at least as well as the node's own patterns do.</td></tr>
+    <tr><td><b>Scrambled, noise, inverted</b></td><td>Blind attacks, all validly signed: a real digit with its pixels shuffled; random values; a real digit with its ink turned inside out.</td></tr>
+    <tr><td><b>Mimic</b></td><td>An attacker who can query the defence: it starts from noise and, for 300 queries, keeps any one-pixel change that raises the node's fit.</td></tr>
+    <tr><td><b>Harmful share</b></td><td>An antibody set grown from real digits, validly signed: it should be refused because it would reject real inputs.</td></tr>
+    <tr><td><b>Seal, mutation gate</b></td><td>Seal: the claims, then the frozen defence, committed to the public record before the test digits are read. Mutation gate: a tool (witness) that breaks the code in small ways and checks the tests catch every break.</td></tr>
+  </table></div>
 </section>
 
 <section id="start">
@@ -153,6 +167,15 @@ footer p+p{margin-top:6px}
     <div class="card"><div class="k">For engineering</div><p style="margin-top:6px">Verify before parse; then a structural check that costs a settle; then shared antibodies adopted only after a local check. Every number re-derives from pinned files.</p></div>
     <div class="card"><div class="k">For risk and procurement</div><p style="margin-top:6px">The limits are on the page: this does not stop genuine-looking inputs from a stolen key, physical tampering, or bad firmware.</p></div>
   </div>
+  <h3>A pilot, step by step</h3>
+  <ol>
+    <li>Pick one input channel where signed inputs arrive and junk or forgeries would cost you.</li>
+    <li>Write down the bars before anything is built, and seal them: how many real inputs may be turned away, and which attacks must be stopped.</li>
+    <li>Collect your past real inputs and the attacks you have seen; tune on those only.</li>
+    <li>Freeze it, then judge it once on held-out inputs and attacks. The fee is due only if it beat your current way.</li>
+    <li>Run it beside your current checks in monitor mode, rejecting nothing, before it is allowed to turn anything away.</li>
+  </ol>
+  <p class="muted">What it runs on: Node.js 20 or a current browser. No GPU, no cloud service, no model download.</p>
 </section>
 
 <section id="paper">
